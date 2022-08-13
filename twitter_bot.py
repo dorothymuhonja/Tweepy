@@ -1,6 +1,7 @@
+import json
 import tweepy
 
-print('Tweepy Rocks!!!')
+# print('Tweepy Rocks!!!')
 
 CONSUMER_KEY = 'BgUagDjg64h8kxdXq8t2M5DFA'
 CONSUMER_SECRET = 'bY99cvGfcrrkvFmFIuQgESGoYzO9SQ1iAs4AeQw8Kee2F6fQjX'
@@ -34,23 +35,23 @@ api = tweepy.API(auth)
 
 # api.update_status("Test tweet from Tweepy Python")
 
-user = api.get_user(screen_name="dorothy_muhonja")
-print('User details:')
-print(user.name)
-print(user.description)
+# user = api.get_user(screen_name="dorothy_muhonja")
+# print('User details:')
+# print(user.name)
+# print(user.description)
 # print(user.location)
 
 
 # method for followers
-print('last 20 followers:')
-for follower in user.followers():
-    print(follower.name)
+# print('last 20 followers:')
+# for follower in user.followers():
+#     print(follower.name)
 
 
-api.create_friendship(screen_name='realpython')
+# api.create_friendship(screen_name='realpython')
 
 # updating profile
-api.update_profile(description='Just your everyday human')
+# api.update_profile(description='Just your everyday human')
 
 #method for likes(marking most recent tweet as liked)
 # tweets = api.home_timeline(count=1)
@@ -59,5 +60,17 @@ api.update_profile(description='Just your everyday human')
 # api.create_favorite(tweet.id)
 
 # method for seeing blocked users
-for block in api.blocks():
-    print(block.name)
+# for block in api.get_blocked_ids():
+#     print(block.name)
+
+# search methods
+# for tweet in api.search_tweets(q="Python",lang="en", count=10):
+#     print(f"{tweet.user.name}:{tweet.text}")
+
+# trend methods
+# trend_result = api.get_place_trends(1)
+
+# for trend in trend_result[0]["trends"]:
+#     print(trend["name"])
+
+# streaming method
