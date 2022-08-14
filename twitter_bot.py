@@ -1,5 +1,6 @@
 import json
 import tweepy
+import time
 
 # print('Tweepy Rocks!!!')
 
@@ -7,13 +8,9 @@ CONSUMER_KEY = 'BgUagDjg64h8kxdXq8t2M5DFA'
 CONSUMER_SECRET = 'bY99cvGfcrrkvFmFIuQgESGoYzO9SQ1iAs4AeQw8Kee2F6fQjX'
 ACCESS_KEY = '752093014160465920-5jew3zhIOtkJ2KBCDqgoTtjdSHAzcm3'
 ACCESS_SECRET = 'OIrAvdKjQu3c9rj344pNl1Oc4HqH2LTjdUuuKDscMH6IY'
+bearer_token = r'AAAAAAAAAAAAAAAAAAAAAFOxfgEAAAAAAHKYLhGDb1pKWAXNAEY5OkF%2FNxY%3DKkNu5gjt3lJM67nVH5Lh5FSqDkdOhG9tcW6AErhC7p8v8YjC5R'
 
-#authenticate to twitter
-auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
-#creating API object
-api = tweepy.API(auth)
 
 
 #method for mentions
@@ -74,3 +71,29 @@ api = tweepy.API(auth)
 #     print(trend["name"])
 
 # streaming method
+search_terms = ["python", "programming", "coding"]
+
+class MyStreamClient(tweepy.StreamingClient):
+
+    def on_tweet(self, tweet):
+        if tweet.referenced_tweets == None:
+            print(tweet.text)
+
+            time.sleep(0.2)
+
+
+#authenticate to twitter
+auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
+
+#creating API object
+api = tweepy.API(auth)
+
+stream = MyStreamClient(bearer_token=bearer_token)
+
+for term in search_terms:
+    stream.add_rules(tweepy.StreamRule(term))
+
+stream.filter(tweet_fields=["referenced_tweets"])
+
+
